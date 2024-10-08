@@ -32,7 +32,83 @@ namespace PasswordMeter
 
         private void passwordMeterButton_Click(object sender, RoutedEventArgs e)
         {
+            string username = userNameTextBox.Text.Trim();
+            string password = passwordTextBox.Text.Trim();
 
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                resultTextBlock.Text = "Je moet een wachtwoord en gebruikersnaam ingeven.";
+                return;
+            }
+
+            int passwordStrengt = 0;
+            int bevatcijfer = 0;
+
+            if (!password.Contains(username))
+            {
+                passwordStrengt++;
+            }
+
+            if (password.Length >= 10)
+            {
+                passwordStrengt++;
+            }
+
+            bool hasDigit = false;
+            bool hasUpper = false;
+            bool hasLower = false;
+
+            foreach (char character in password.ToCharArray())
+            {
+                if (char.IsDigit (character))
+                {
+                    hasDigit = true;
+                }
+
+                if (char.IsUpper(character))
+                {
+                    hasUpper = true;
+                }
+
+                if (char.IsLower(character))
+                {
+                    hasLower = true;
+                }
+                if (hasDigit)
+                {
+                    passwordStrengt++;
+                }
+                if (hasUpper)
+                {
+                    passwordStrengt++;
+                }
+                if (hasLower)
+                {
+                    passwordStrengt++;
+                }
+
+                if (passwordStrengt > 4)
+                {
+                    resultTextBlock.Text = "Je wachtwoord is onbreekbaar.";
+                }
+
+                if (passwordStrengt == 4)
+                {
+                    resultTextBlock.Text = "Je wachtwoord is sterk.";
+                }
+
+                if (passwordStrengt <= 3)
+                {
+                    resultTextBlock.Text = "Je wachtwoord is niet sterk";
+                }
+                
+
+                
+
+
+                    
+                
+            }
         }
     }
 }
